@@ -11,7 +11,7 @@ class Colors:
     UNDRLINE = '\033[4m'
 
 class Person:
-    def __init__(self, hp, mp, atk, df, magic):
+    def __init__(self, hp, mp, atk, df, magic, items):
         self.maxhp = hp
         self.hp = hp
         self.maxmp = mp
@@ -20,7 +20,8 @@ class Person:
         self.atkh = atk + 10
         self.df = df
         self.magic = magic
-        self.actions = ['Attack', 'Magic']
+        self.items = items
+        self.actions = ['Attack', 'Magic', 'Items']
 
     
     def generate_dmg(self):
@@ -77,5 +78,14 @@ class Person:
             print(str(i) + ': ' + spell.name + ', cost: ' + str(spell.cost) + ' magic points')
             i += 1
     
-
+    def choose_item(self):
+        i = 1
+        for item in self.items['items']:
+            print(i, ': ', item.name, ', [', item.description, '], You have: ', self.items['ammo'][self.items['items'].index(item)])
+            i += 1
     
+    def has_item(self, index):
+        return self.items['ammo'][index] != 0
+    
+    def has_action(self, index):
+        return len(self.actions) > index and index >= 0
